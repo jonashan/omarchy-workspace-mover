@@ -1,12 +1,13 @@
 #!/bin/bash
 #
-# Move active workspace to the next monitor (with wraparound)
+# Move active workspace to the previous monitor (with wraparound)
 
 # Get list of connected monitor names
 readarray -t monitors < <(hyprctl monitors | grep "Monitor" | awk '{print $2}')
 
 # Exit if no monitors or only one monitor
-if (( ${#monitors[@]} <= 1 )); then
+if ((${#monitors[@]} <= 1)); then
+  echo "Could not find multiple monitors"
   exit 0
 fi
 
@@ -25,13 +26,25 @@ for i in "${!monitors[@]}"; do
 done
 
 # If current monitor not found, exit
-if (( current_index == -1 )); then
+if ((current_index == -1)); then
   exit 1
 fi
 
-# Calculate next monitor index (with wraparound)
-next_index=$(( (current_index + 1) % ${#monitors[@]} ))
-target_monitor="${monitors[$next_index]}"
+case "$1" in
+"left")
+  # Calculate previous monitor index (with wraparound)
+  prev_index=$(((current_index - 1 + ${#monitors[@]}) % ${#monitors[@]}))
+  target_monitor="${monitors[$prev_index]}"
+  ;;
+"right")
+  # Calculate next monitor index (with wraparound)
+  next_index=$(((current_index + 1) % ${#monitors[@]}))
+  target_monitor="${monitors[$next_index]}"
+  ;;
+*)
+  echo "Invalid param - Use 'left' or 'right' as direction"
+  ;;
+esac
 
 # Move current workspace to target monitor
 hyprctl dispatch moveworkspacetomonitor "$current_workspace_id" "$target_monitor" &>/dev/null
