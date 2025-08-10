@@ -2,7 +2,7 @@ PLUGIN_REPO_URL=$(git remote get-url origin)
 BIN_PATH="$HOME/.local/bin"
 PLUGIN_PATH="$HOME/.config/omarchy/plugins"
 PLUGIN_NAME=$(basename -s .git "$PLUGIN_REPO_URL")
-HYPRLAND_CONFIG_FILE="$HOME/.config/hypr/hyprland.conf"
+HYPRLAND_PLUGIN_FILE="$HOME/.config/hypr/plugins.conf"
 
 if [ -d "$PLUGIN_PATH/$PLUGIN_NAME" ]; then
 
