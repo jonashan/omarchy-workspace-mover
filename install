@@ -22,7 +22,7 @@ if [ -d "$PLUGIN_PATH/$PLUGIN_NAME" ]; then
   # Installing hyperland configs for plugin
   for file in "$PLUGIN_PATH"/"$PLUGIN_NAME"/hypr/*; do
     if [ -f "$file" ]; then
-      echo "source = $file" >>"$HYPRLAND_CONFIG_FILE"
+      echo "source = $file" >>"$HYPRLAND_PLUGIN_FILE"
     fi
   done
 fi
