@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PLUGIN_REPO_URL=$(git remote get-url origin)
 BIN_PATH="$HOME/.local/bin"
 PLUGIN_PATH="$HOME/.config/omarchy/plugins"
