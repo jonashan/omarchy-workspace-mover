@@ -11,7 +11,6 @@ if [ -d "$PLUGIN_PATH/$PLUGIN_NAME" ]; then
   if [ ! -d $BIN_PATH ]; then
     mkdir -p $BIN_PATH
   fi
-  echo "PLUGIN $PLUGIN_PATH/$PLUGIN_NAME/bin/*"
   # Installing scripts for plugin
   for file in "$PLUGIN_PATH"/"$PLUGIN_NAME"/bin/*; do
     if [ -f "$file" ]; then
