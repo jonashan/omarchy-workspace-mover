@@ -19,7 +19,7 @@ if [ -d "$PLUGIN_PATH/$PLUGIN_NAME/bin" ]; then
 fi
 
 # Remove hyprland config sources
-if [ -f "$HYPRLAND_CONFIG_FILE" ] && [ -d "$PLUGIN_PATH/$PLUGIN_NAME/hypr" ]; then
+if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_PATH/$PLUGIN_NAME/hypr" ]; then
   for file in "$PLUGIN_PATH/$PLUGIN_NAME/hypr"/*; do
     if [ -f "$file" ]; then
       # Remove the source line from hyprland config
