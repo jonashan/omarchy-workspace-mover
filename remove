@@ -1,14 +1,14 @@
 #!/bin/bash
 
 PLUGIN_REPO_URL=$(git remote get-url origin)
-BIN_PATH="~/.local/bin"
-PLUGIN_PATH="~/.config/omarchy/plugins"
+BIN_PATH="$HOME/.local/bin"
 PLUGIN_NAME=$(basename -s .git "$PLUGIN_REPO_URL")
-HYPRLAND_PLUGIN_FILE="~/.config/hypr/plugins.conf"
+PLUGIN_DIR="$HOME/.config/omarchy/plugins/$PLUGIN_NAME"
+HYPRLAND_PLUGIN_FILE="$HOME/.config/hypr/plugins.conf"
 
 # Remove hyprland config sources
-if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_PATH/$PLUGIN_NAME/hypr" ]; then
-  for file in "$PLUGIN_PATH/$PLUGIN_NAME/hypr"/*; do
+if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_DIR/hypr" ]; then
+  for file in "$PLUGIN_DIR/hypr"/*; do
     if [ -f "$file" ]; then
       # Remove the source line from hyprland config
       sed -i "\|source = $file|d" "$HYPRLAND_PLUGIN_FILE"
@@ -16,5 +16,5 @@ if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_PATH/$PLUGIN_NAME/hypr" ]; th
   done
 fi
 
-# Remove plugin
-rm -rf "$PLUGIN_PATH/$PLUGIN_NAME"
+# Remove plugin directory
+rm -rf "$PLUGIN_DIR"
