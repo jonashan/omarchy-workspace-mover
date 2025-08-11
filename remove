@@ -1,10 +1,21 @@
 #!/bin/bash
 
-PLUGIN_REPO_URL=$(git remote get-url origin)
 BIN_PATH="$HOME/.local/bin"
-PLUGIN_NAME=$(basename -s .git "$PLUGIN_REPO_URL")
+PLUGIN_NAME="omarchy-workspace-mover"
 PLUGIN_DIR="$HOME/.config/omarchy/plugins/$PLUGIN_NAME"
 HYPRLAND_PLUGIN_FILE="$HOME/.config/hypr/plugins.conf"
+
+# Remove binaries
+if [ -d "$PLUGIN_DIR/$PLUGIN_NAME/bin" ]; then
+  for file in "$PLUGIN_DIR/$PLUGIN_NAME/bin"/*; do
+    if [ -f "$file" ]; then
+      binary_name=$(basename "$file")
+      if [ -f "$BIN_PATH/$binary_name" ]; then
+        rm "$BIN_PATH/$binary_name"
+      fi
+    fi
+  done
+fi
 
 # Remove hyprland config sources
 if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_DIR/hypr" ]; then
@@ -15,6 +26,3 @@ if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_DIR/hypr" ]; then
     fi
   done
 fi
-
-# Remove plugin directory
-rm -rf "$PLUGIN_DIR"
