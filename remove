@@ -29,4 +29,5 @@ if [ -f "$HYPRLAND_PLUGIN_FILE" ] && [ -d "$PLUGIN_PATH/$PLUGIN_NAME/hypr" ]; th
 fi
 
 # Remove plugin directory
+cd ~
 rm -rf "$PLUGIN_PATH/$PLUGIN_NAME"
